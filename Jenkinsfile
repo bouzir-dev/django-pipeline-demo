@@ -9,13 +9,13 @@ pipeline {
       AWS_REGION = 'us-east-2'
       // This is the name of our CodeDeploy application
       CODEDEPLOY_APP = 'tutorial_application'
-      // This is the name of the deployment group for our 
+      // This is the name of the deployment group for our
       // CodeDeploy application
       CODEDEPLOY_DEPLOYGROUP = 'tutorial_application_group'
       // This is the S3 bucket that we will be uploading our
       // releases to
       S3_BUCKET = 'tutorial-application-bucket'
-      // This is what we want to name our release. For simplicity, 
+      // This is what we want to name our release. For simplicity,
       // I am keeping it as artifact.zip, but you could do something
       // that includes the Jenkins build number or the Git commit hash
       ARTIFACT = 'artifact.zip'
@@ -37,7 +37,7 @@ pipeline {
             sh '. bin/activate'
          }
       }
-      
+
       // The build stage
       // Here we are installing the project dependencies from
       // requirements.txt via pip
@@ -47,9 +47,9 @@ pipeline {
             sh 'python3 -m pip install -r requirements.txt'
          }
       }
-      
+
       // The test stage
-      // Here we are running our tests with pytest and exporting 
+      // Here we are running our tests with pytest and exporting
       // the results with junit-xml to ./reports/test_report.xml
       stage('Test') {
          steps {
@@ -57,7 +57,7 @@ pipeline {
             sh 'python3 -m pytest --junit-xml=./reports/test_report.xml'
          }
       }
-      
+
       // The release stage
       // Here we are zipping up the project into a zipped file
       // that is named according to our ARTIFACT environment variable
